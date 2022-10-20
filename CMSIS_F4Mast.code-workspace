@@ -1,0 +1,35 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"gpio_fun.h": "c",
+			"usart_uart_dma.h": "c",
+			"stm32f103xb.h": "c",
+			"core_cm3.h": "c",
+			"system_stm32f1xx.h": "c",
+			"rcc_config.h": "c",
+			"printtobuf.h": "c",
+			"stdio.h": "c",
+			"sstream": "c",
+			"main.h": "c",
+			"config.h": "c",
+			"contable.h": "c",
+			"stm32f401xc.h": "c",
+			"stm32f4xx.h": "c",
+			"gpio.h": "c",
+			"dlt_logs_mcu.h": "c",
+			"ili9341_spi.h": "c",
+			"stdint.h": "c",
+			"uart2_dlt.h": "c"
+		},
+		"workbench.colorCustomizations": {
+			"titleBar.activeBackground" : "#685205",
+			"titleBar.inactiveBackground": "#ac8b12",
+			"titleBar.activeForeground":"#000",
+		}
+	}
+}
