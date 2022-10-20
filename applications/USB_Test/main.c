@@ -5,12 +5,16 @@ int main(void)
 	PLL_Config84Mhz();
 	ConfigSysTick1ms();
 	Led_Cfg();
-	Uart2InitTransmitWithDMAand_ucDLTlib();
+	toggleLed();
+//	Uart2InitTransmitWithDMAand_ucDLTlib();
+
+	localUSB_TEMPORARYinit();
 
 	while(1)
 	{
-		toggleLed();
-		DelayMs(500);
+		gintsts_handler();
+		// toggleLed();
+		// DelayMs(500);
 	}
 }
 

@@ -19,7 +19,8 @@
         "rtc.h": "c",
         "gpio.h": "c",
         "lv_examples.h": "c",
-        "lv_refr.h": "c"
+        "lv_refr.h": "c",
+        "winapifamily.h": "c"
     },
     "cortex-debug.variableUseNaturalFormat": false
 }

@@ -19,6 +19,8 @@ INC_DIR += -IDrivers/System
 INC_DIR += -IDrivers/UART_DLT
 INC_DIR += -Ilibraries/ucDLT/DLTuc_libFiles
 
+#usb
+SRC +=  applications/USB_Test/usbd_driver.c
 
 # link script
 LDSCRIPT = StartUpAndLinkerScript/STM32F401CCUx_FLASH.ld

@@ -7,7 +7,7 @@
         {
             "name": "Cortex Debug",
             "cwd": "${workspaceRoot}",
-            "executable": "./.build_debug/CompilationOutputFiles/RTC_Config/RTC_Config.elf",
+            "executable": "./.build_debug/CompilationOutputFiles/USB_Test/USB_Test.elf",
             "preLaunchTask": "buildRCC_ConfigApp",
             "request": "launch",
             "type": "cortex-debug",

@@ -8,4 +8,6 @@
 #include "System.h"
 #include "DLTuc.h"
 
+#include "usbd_driver.h"
+
 #endif

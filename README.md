@@ -1,1 +1,1 @@
-Educational repository, CMSIS, and EA mastering
+Educational repository, USBd mastering only with CMSIS

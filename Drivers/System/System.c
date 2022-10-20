@@ -52,7 +52,7 @@ void PLL_Config84Mhz(void)
 	RCC->PLLCFGR = RCC_PLLCFGR_PLLSRC_HSE | 25ul << 0 /*M*/ | 336ul<<6 /*N*/ 
 										| 1ul << 16 /*P*/ | 7ul << 24 /*Q */      
 										| 1ul << 29; /*bit 29 by default is equal 1 */ 
-	RCC->SSCGR = 500ul<<0 | 44ul<<13 | RCC_SSCGR_SSCGEN;
+	// RCC->SSCGR = 500ul<<0 | 44ul<<13 | RCC_SSCGR_SSCGEN;
 	while (!(RCC->CR & RCC_CR_HSERDY));
 	RCC->CR |= RCC_CR_PLLON;
 
