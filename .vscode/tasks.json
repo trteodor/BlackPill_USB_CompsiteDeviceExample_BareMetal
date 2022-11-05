@@ -6,7 +6,7 @@
         {
             "label": "buildRCC_ConfigApp",
             "type": "shell",
-            "command": "make CompileAppDebug App=RTC_Config",
+            "command": "make CompileAppDebug App=USB_otg_Cdc",
             "args": [
             ],
             "group": "build",

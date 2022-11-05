@@ -4,9 +4,6 @@
 [submodule "thirdparty/Cmock"]
 	path = thirdparty/Cmock
 	url = https://github.com/ThrowTheSwitch/CMock
-[submodule "libraries/lvgl"]
-	path = libraries/lvgl
-	url = https://github.com/lvgl/lvgl
 [submodule "libraries/ucDLT"]
 	path = libraries/ucDLT
 	url = https://github.com/trteodor/ucDLTlib

@@ -1,7 +1,7 @@
 #ifndef __SYSTEM_CONFIG_H__
 #define __SYSTEM_CONFIG_H__
 
-
+#include "stdint.h"
 
 void ConfigSysTick1ms(void);
 uint32_t GetSysTime(void);

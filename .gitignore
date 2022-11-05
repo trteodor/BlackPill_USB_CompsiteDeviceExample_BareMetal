@@ -1,3 +1,4 @@
 /.build_release
 /.build_debug
 /.buildUT
+.OPENOCD_LOG
