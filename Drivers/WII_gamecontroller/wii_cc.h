@@ -20,8 +20,8 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ***************************************************************************/
 
-#include <stm32f1xx_hal.h>
-#include "i2c.h"
+
+#include "stdint.h"
 
 #define WII_CONTROLLER_ID	(0x52 << 1)
 

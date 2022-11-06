@@ -6,7 +6,7 @@
         {
             "label": "buildRCC_ConfigApp",
             "type": "shell",
-            "command": "make CompileAppDebug App=USB_otg_CDC_ucDLT",
+            "command": "make CompileAppDebug App=USB_otg_CDC_ucDLT_Wii",
             "args": [
             ],
             "group": "build",

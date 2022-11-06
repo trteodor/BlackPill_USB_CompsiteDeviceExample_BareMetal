@@ -2,6 +2,8 @@
 
 **_DIRECTORY: "applications" contain provided examples_**
 
+Directory: Driver/USBd_otg_fs/* contain prepared files for usb_otg_fs device driver
+Dicrectory: applications/*/* the prepared examples have been placed...
 
 This project was created only for educational purposes.
 Created software is prepared for Board- BlackPill with STM32F401CCU6:

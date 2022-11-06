@@ -41,7 +41,7 @@ S := $E   $E
 help:
 	@echo     Call: make help \ \ \ -show this information
 	@echo     To compile and the main example \(VCP+HID\) use following command:
-	@echo     -- \ \  make CompileAppDebug App=USB_otg_Cdc_Hid flash
+	@echo     -- \ \  make App=USB_otg_Cdc_Hid CompileAppDebug
 	@echo     --OR: make App flash      \ \ \ \ \ \ \ \ \ \ \ \ \ ---  \(DefaultApp\)
 	@echo     ----------------------------------------------------------------------------------------------
 	@echo	  How Use this build system:

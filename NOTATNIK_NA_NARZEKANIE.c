@@ -13,8 +13,6 @@ samodzielnie taki sterownik przygotować, co jest raczej skomplikowanym i czasoc
 */
 
 /*
-  * Odradzam serdecznie uczyc sie USB :) Strata czasu :( 
-  * Szkoda ze juz za pozno, zbyt skomplikowane do efektu jaki uzyskacie
   * mnostwo rejestrow kolejki..
   * zadania, maszyna stanowa realizujaca transmisje danych sterujacych...
   * pakiety in out...
@@ -64,12 +62,11 @@ samodzielnie taki sterownik przygotować, co jest raczej skomplikowanym i czasoc
 *
 *
 * Calkowita liczba endpointow ma byc zdefiniowana w pierwszym desk. konfiguracji? - Nie :) 
-* WireShark na windowsie jest ujowy? 
 * Jak nie ma odpowiedzi to mi nie pokazuje, mi ze windowsowy host pytal? Nie no niby pokazuje
 * 
 *
 * Dalej cza ponarzekac, cza by narysowac maszynke stanowa i ujac to wszystko, z danymi sterujacymi. 
-* Bo czytajac kod musi tego nie ogarne :(
+* Bo czytajac kod ciezko ogartnac
 *
 */
 

@@ -626,7 +626,7 @@ void Delay_USB(volatile unsigned count) {
   while (count--);
 }
 
-static int USBD_InitUSB_GPIO_andIRQ(void) {
+static int USBD_InitUSB_GPIO_andNVIC(void) {
 
     SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOAEN);
 
@@ -721,7 +721,7 @@ static int USBD_periphInit(int clk) {
 int USBd_InitAll(int clk) {
 
   USBD_InitDevApp() ;
-  USBD_InitUSB_GPIO_andIRQ();
+  USBD_InitUSB_GPIO_andNVIC();
   USBD_periphDeInit();
   USBD_periphInit(clk);
 

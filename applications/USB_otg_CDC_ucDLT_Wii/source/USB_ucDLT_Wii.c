@@ -6,6 +6,8 @@
 
 #include "DLTuc.h"
 
+#include "wii_cc.h"
+
 /*ucDLT fun sec start*/
 void USB_VCP_ucDLT_DataTransmit(uint8_t *DltLogData, uint8_t Size);
 /*ucDLT fun sec end*/
@@ -27,7 +29,6 @@ static uint16_t ep2queue;
 uint8_t rs232state;
 static usb_cdc_line_coding_t rs232coding;
 
-static hid_mouse_boot_report_t report;
 uint8_t configuration, protocol, busy;
 static int idle_value, idle_timer;
 
@@ -49,34 +50,80 @@ static usb_device_descriptor_t const device_descriptor = {
 };
 
 
-static uint8_t usb_hid_report_descriptor[] = {
-  0x05, 0x01, /* Usage Page (Generic Desktop) */
-  0x09, 0x02, /* Usage (Mouse) */
-  0xa1, 0x01, /* Collection (Application) */
-  0x09, 0x01,   /* Usage (Pointer) */
-  0xa1, 0x00,   /* Collection (Physical) */
-  0x05, 0x09,     /* Usage Page (Buttons) */
-  0x19, 0x01,     /* Usage Minimum (01) */
-  0x29, 0x03,     /* Usage Maximum (03) */
-  0x15, 0x00,     /* Logical Minimum (0) */
-  0x25, 0x01,     /* Logical Maximum (1) */
-  0x95, 0x03,     /* Report Count (3), 3 buttons bits */
-  0x75, 0x01,     /* Report Size (1) */
-  0x81, 0x02,     /* Input (Data, Variable, Absolute) */
-  0x95, 0x01,     /* Report Count (1) */
-  0x75, 0x05,     /* Report Size (5) */
-  0x81, 0x01,     /* Input (Constant), 5 bit padding */
-  0x05, 0x01,     /* Usage Page (Generic Desktop) */
-  0x09, 0x30,     /* Usage (X) */
-  0x09, 0x31,     /* Usage (Y) */
-  0x15, 0x81,     /* Logical Minimum (-127) */
-  0x25, 0x7f,     /* Logical Maximum (127) */
-  0x95, 0x02,     /* Report Count (2), 2 position bytes */
-  0x75, 0x08,     /* Report Size (8) */
-  0x81, 0x06,     /* Input (Data, Variable, Relative) */
-  0xc0,         /* End Collection */
-  0xc0        /* End Collection */
+// static uint8_t usb_hid_report_descriptor[] = {
+//   0x05, 0x01, /* Usage Page (Generic Desktop) */
+//   0x09, 0x02, /* Usage (Mouse) */
+//   0xa1, 0x01, /* Collection (Application) */
+//   0x09, 0x01,   /* Usage (Pointer) */
+//   0xa1, 0x00,   /* Collection (Physical) */
+//   0x05, 0x09,     /* Usage Page (Buttons) */
+//   0x19, 0x01,     /* Usage Minimum (01) */
+//   0x29, 0x03,     /* Usage Maximum (03) */
+//   0x15, 0x00,     /* Logical Minimum (0) */
+//   0x25, 0x01,     /* Logical Maximum (1) */
+//   0x95, 0x03,     /* Report Count (3), 3 buttons bits */
+//   0x75, 0x01,     /* Report Size (1) */
+//   0x81, 0x02,     /* Input (Data, Variable, Absolute) */
+//   0x95, 0x01,     /* Report Count (1) */
+//   0x75, 0x05,     /* Report Size (5) */
+//   0x81, 0x01,     /* Input (Constant), 5 bit padding */
+//   0x05, 0x01,     /* Usage Page (Generic Desktop) */
+//   0x09, 0x30,     /* Usage (X) */
+//   0x09, 0x31,     /* Usage (Y) */
+//   0x15, 0x81,     /* Logical Minimum (-127) */
+//   0x25, 0x7f,     /* Logical Maximum (127) */
+//   0x95, 0x02,     /* Report Count (2), 2 position bytes */
+//   0x75, 0x08,     /* Report Size (8) */
+//   0x81, 0x06,     /* Input (Data, Variable, Relative) */
+//   0xc0,         /* End Collection */
+//   0xc0        /* End Collection */
+// };
+
+
+static uint8_t usb_hid_report_descriptor[] =
+{
+	    0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
+	    0x09, 0x05,                    // USAGE (Game Pad)
+	    0xa1, 0x01,                    // COLLECTION (Application)
+	    0x05, 0x02,                    //   USAGE_PAGE (Simulation Controls)
+	    0x09, 0xbb,                    //   USAGE (Throttle)
+	    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+	    0x25, 0x1f,                    //   LOGICAL_MAXIMUM (31)
+	    0x75, 0x08,                    //   REPORT_SIZE (8)
+	    0x95, 0x01,                    //   REPORT_COUNT (1)
+	    0x81, 0x02,                    //   INPUT (Data,Var,Abs)
+	    0x05, 0x02,                    //   USAGE_PAGE (Simulation Controls)
+	    0x09, 0xbb,                    //   USAGE (Throttle)
+	    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+	    0x25, 0x1f,                    //   LOGICAL_MAXIMUM (31)
+	    0x75, 0x08,                    //   REPORT_SIZE (8)
+	    0x95, 0x01,                    //   REPORT_COUNT (1)
+	    0x81, 0x02,                    //   INPUT (Data,Var,Abs)
+	    0x05, 0x01,                    //   USAGE_PAGE (Generic Desktop)
+	    0xa1, 0x00,                    //   COLLECTION (Physical)
+	    0x09, 0x30,                    //   USAGE (X)
+	    0x09, 0x31,                    //   USAGE (Y)
+	    0x09, 0x32,                    //   USAGE (Z)
+	    0x09, 0x33,                    //   USAGE (Rx)
+	    0x15, 0x81,                    //   LOGICAL_MINIMUM (-127)
+	    0x25, 0x7f,                    //   LOGICAL_MAXIMUM (127)
+	    0x75, 0x08,                    //   REPORT_SIZE (8)
+	    0x95, 0x04,                    //   REPORT_COUNT (4)
+	    0x81, 0x02,                    //   INPUT (Data,Var,Abs)
+	    0x05, 0x09,                    //   USAGE_PAGE (Button)
+	    0x19, 0x01,                    //   USAGE_MINIMUM (Button 1)
+	    0x29, 0x10,                    //   USAGE_MAXIMUM (Button 16)
+	    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+	    0x25, 0x01,                    //   LOGICAL_MAXIMUM (1)
+	    0x75, 0x01,                    //   REPORT_SIZE (1)
+	    0x95, 0x10,                    //   REPORT_COUNT (16)
+	    0x81, 0x02,                    //   INPUT (Data,Var,Abs)
+	    0xc0,                          // END_COLLECTION
+	    0xc0                           // END_COLLECTION
 };
+
+extern WII_CC_DATA_t wii_data;
+
 
 typedef struct {
   usb_configuration_descriptor_t       cnf_descr;
@@ -185,7 +232,7 @@ static usb_com__hid_configuration_t const com_configuration = {
     1,                                          /* bNumEndpoints */
     HUMAN_INTERFACE_DEVICE_CLASS,               /* bInterfaceClass */
     BOOT_INTERFACE_SUBCLASS,                    /* bInterfaceSubClass */
-    MOUSE_PROTOCOL,                             /* bInterfaceProtocol */
+    2,                                          /* bInterfaceProtocol */
     0                                           /* iInterface */
   },
   {
@@ -202,7 +249,7 @@ static usb_com__hid_configuration_t const com_configuration = {
     ENDPOINT_DESCRIPTOR,                      /* bDescriptorType */
     ENDP3 | ENDP_IN,                          /* bEndpointAddress */
     INTERRUPT_TRANSFER,                       /* bmAttributes */
-    (sizeof(hid_mouse_boot_report_t)), /* wMaxPacketSize */
+    (sizeof(WII_CC_DATA_t)),                  /* wMaxPacketSize */
     10                                        /* bInterval */
   }
   #endif
@@ -408,7 +455,7 @@ usb_result_t SetConfiguration(uint16_t confValue) {
                                0, INT_BUFF_SIZE);
  #ifdef USE_HID_DEVICE       
     USBDendPointConfigure(ENDP3, INTERRUPT_TRANSFER, 0,
-                                 sizeof(hid_mouse_boot_report_t));
+                                 sizeof(WII_CC_DATA_t));
 #endif
 
     if (r1 == REQUEST_SUCCESS && r2 == REQUEST_SUCCESS)
@@ -552,8 +599,8 @@ usb_result_t ClassInDataSetup(usb_setup_packet_t const *setup,
     if (setup->bRequest == GET_REPORT &&
         setup->wIndex == 0 &&
         setup->wValue == 0x0100 /* input report, report ID == 0 */) {
-      *data = (uint8_t const *)&report;
-      *length = sizeof(report);
+      *data = (uint8_t const *)&wii_data;
+      *length = sizeof(wii_data);
       return REQUEST_SUCCESS;
     }
     else if (setup->bRequest == GET_PROTOCOL &&
@@ -658,10 +705,27 @@ static void EP3_HID_IN(void)
 
 static void SoF(uint16_t frameNumber) {
 
-  if (configuration > 0 && busy == 0) {
+
+  if (idle_timer > 0)
+    --idle_timer;
+
+  if (configuration > 0 && idle_timer == 0 && busy == 0) {
+
+    	uint8_t packet[8]={0};
+	  //now its copy for copy but I don't will use it finally
+		packet[0] = (uint8_t) wii_data.left_trigger;
+		packet[1] = (uint8_t) wii_data.right_trigger;
+		packet[2] = (uint8_t) wii_data.left_analog_x;
+		packet[3] = (uint8_t) wii_data.left_analog_y;
+		packet[4] = (uint8_t) wii_data.right_analog_x;
+		packet[5] = (uint8_t) wii_data.right_analog_y;
+
+		packet[6] = *((uint8_t*) &wii_data.buttons);
+		packet[7] = *(((uint8_t*) &wii_data.buttons)+1);
+
     /* We assume copy semantics. */
-    USBDwrite(ENDP3, (uint8_t const *)&report, sizeof(report));
-    /*TODO: Uncomment this line to see effect!! MOUSE!!!*/
+    USBDwrite(ENDP3, (uint8_t const *)packet, sizeof(packet));
+
     // report.x = report.y = 1;
     busy = 1;
   }

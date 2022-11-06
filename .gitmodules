@@ -7,3 +7,4 @@
 [submodule "libraries/ucDLT"]
 	path = libraries/ucDLT
 	url = https://github.com/trteodor/ucDLTlib
+	branch = master

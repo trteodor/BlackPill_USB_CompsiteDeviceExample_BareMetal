@@ -21,7 +21,7 @@
 ***************************************************************************/
 
 #include "wii_cc.h"
-#include "i2c.h"
+#include "i2c_wii.h"
 
 static WII_CC_DATA_t initial_data;
 
@@ -29,8 +29,10 @@ static void wiiCCGetData(WII_CC_DATA_t* data)
 {
 	uint8_t buf[6]={0};
 
-	HAL_I2C_Master_Transmit(&hi2c1, WII_CONTROLLER_ID, 0x00, 1, 100);
-	HAL_I2C_Master_Receive(&hi2c1, WII_CONTROLLER_ID, buf, 6, 100);
+	// HAL_I2C_Master_Transmit(&hi2c1, WII_CONTROLLER_ID, 0x00, 1, 100);
+	// HAL_I2C_Master_Receive(&hi2c1, WII_CONTROLLER_ID, buf, 6, 100);
+	// I2C_Wii_Master_Receive(uint16_t DevAddr, uint8_t Reg, uint8_t *pData, uint16_t Size)
+	I2C_Wii_Master_Receive(WII_CONTROLLER_ID,0x00,buf,6);
 	
 	data->left_analog_x = (buf[0] & 0x3F);
 	data->left_analog_y = (buf[1] & 0x3F);
@@ -58,12 +60,13 @@ void wiiCCInit(void)
 	uint8_t data[2];
 	data[0] = 0xF0;
 	data[1] = 0x55;
-
-	HAL_I2C_Master_Transmit(&hi2c1, WII_CONTROLLER_ID, data, 2, 100);
-
+	// I2C_Wii_Master_Transmit(uint16_t DevAddr, uint8_t *pData, uint16_t Size)
+	I2C_Wii_Master_Transmit(WII_CONTROLLER_ID, data, 2);
+	// HAL_I2C_Master_Transmit(&hi2c1, WII_CONTROLLER_ID, data, 2, 100);
 	data[0] = 0xFB;
 	data[1] = 0x00;
-	HAL_I2C_Master_Transmit(&hi2c1, WII_CONTROLLER_ID, data, 2, 100);
+	I2C_Wii_Master_Transmit(WII_CONTROLLER_ID, data, 2);
+
 	for (int i = 0; i < 10; i++)
 	{
 		wiiCCGetData(&initial_data);
