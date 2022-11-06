@@ -1,4 +1,4 @@
-# USB_OTG_DEVICE STACK EXAMPLE 
+# USB_OTG_DEVICE BARE METAL OWN STACK EXAMPLE 
 
 **_DIRECTORY: "applications" contain provided examples_**
 
