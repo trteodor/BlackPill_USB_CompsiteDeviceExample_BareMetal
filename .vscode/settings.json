@@ -21,5 +21,5 @@
         "lv_examples.h": "c",
         "lv_refr.h": "c"
     },
-    "cortex-debug.variableUseNaturalFormat": false
+    "cortex-debug.variableUseNaturalFormat": true
 }

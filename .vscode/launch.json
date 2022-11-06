@@ -7,13 +7,13 @@
         {
             "name": "Cortex Debug",
             "cwd": "${workspaceRoot}",
-            "executable": "./.build_debug/CompilationOutputFiles/USB_otg_Cdc/USB_otg_Cdc.elf",
+            "executable": "./.build_debug/CompilationOutputFiles/USB_otg_CDC_ucDLT/USB_otg_CDC_ucDLT.elf",
             "preLaunchTask": "buildRCC_ConfigApp",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
             "device": "STM32F401CC",
-            "svdFile": "STM32F401.svd"
+            "svdFile": "STM32F401.svd",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32f4x.cfg"
